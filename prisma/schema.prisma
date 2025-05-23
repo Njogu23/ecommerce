@@ -19,6 +19,8 @@ model User {
   email       String    @unique
   avatar      String?
   phone       String
+  password    String
+  isActive    Boolean   @default(true)
   cart        Cart[]
   orders      Order[]
   reviews     Review[]

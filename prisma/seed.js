@@ -25,7 +25,8 @@ async function main() {
         email: 'admin@example.com',
         phone: '+1234567890',
         role: 'ADMIN',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+        password: "123456"
       }
     }),
     prisma.user.create({
@@ -34,7 +35,8 @@ async function main() {
         email: 'john@example.com',
         phone: '+1234567891',
         role: 'CUSTOMER',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+        password: "123456"
       }
     }),
     prisma.user.create({
@@ -43,7 +45,8 @@ async function main() {
         email: 'jane@example.com',
         phone: '+1234567892',
         role: 'CUSTOMER',
-        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
+        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+        password: "123456"
       }
     }),
     prisma.user.create({
@@ -51,7 +54,8 @@ async function main() {
         username: 'mike_wilson',
         email: 'mike@example.com',
         phone: '+1234567893',
-        role: 'CUSTOMER'
+        role: 'CUSTOMER',
+        password: "123456"
       }
     })
   ]);
