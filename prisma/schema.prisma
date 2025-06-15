@@ -62,6 +62,7 @@ model Product {
   category        Category? @relation(fields: [categoryId], references: [id])
   reviews         Review[]
   avgRating       Decimal?  @db.Decimal(2,1)
+  inventory       Inventory?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -168,6 +169,33 @@ model OrderItem {
   @@index([productId])
 }
 
+model Inventory {
+  id          String    @id @default(cuid())
+  productId   String    @unique
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity    Int       @default(0)
+  lowStockThreshold Int @default(5)
+  inStock     Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  logs        InventoryLog[]  // Opposite relation field
+
+  @@index([productId])
+}
+
+model InventoryLog {
+  id          String    @id @default(cuid())
+  inventoryId String
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  change      Int       // Positive for additions, negative for deductions
+  newQuantity Int
+  reason      String?   // "restock", "sale", "adjustment", etc.
+  metadata    Json?     // Additional info like orderId for sales
+  createdAt   DateTime  @default(now())
+
+  @@index([inventoryId])
+  @@index([createdAt])
+}
 
 
 

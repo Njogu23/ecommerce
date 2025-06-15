@@ -6,7 +6,9 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting seed...');
 
-  // Clean existing data
+  // Clean existing data (in correct order due to foreign key constraints)
+  await prisma.inventoryLog.deleteMany();
+  await prisma.inventory.deleteMany();
   await prisma.orderItem.deleteMany();
   await prisma.order.deleteMany();
   await prisma.cartItem.deleteMany();
@@ -273,6 +275,81 @@ async function main() {
 
   console.log('✅ Created products');
 
+  // Create Inventory for all products
+  const inventoryData = [
+    { productId: products[0].id, quantity: 25, lowStockThreshold: 5 }, // iPhone 15 Pro
+    { productId: products[1].id, quantity: 50, lowStockThreshold: 10 }, // Samsung Galaxy Watch 6
+    { productId: products[2].id, quantity: 75, lowStockThreshold: 15 }, // Classic Denim Jacket
+    { productId: products[3].id, quantity: 40, lowStockThreshold: 8 }, // Running Sneakers
+    { productId: products[4].id, quantity: 15, lowStockThreshold: 3 }, // Modern Coffee Table
+    { productId: products[5].id, quantity: 60, lowStockThreshold: 12 }, // Garden Tool Set
+    { productId: products[6].id, quantity: 100, lowStockThreshold: 20 }, // The Art of Programming
+    { productId: products[7].id, quantity: 80, lowStockThreshold: 15 } // Mindfulness and Meditation
+  ];
+
+  const inventories = await Promise.all(
+    inventoryData.map(data => 
+      prisma.inventory.create({
+        data: {
+          productId: data.productId,
+          quantity: data.quantity,
+          lowStockThreshold: data.lowStockThreshold,
+          inStock: data.quantity > 0
+        }
+      })
+    )
+  );
+
+  console.log('✅ Created inventory records');
+
+  // Create some inventory logs for tracking
+  const inventoryLogs = await Promise.all([
+    // Initial stock for iPhone 15 Pro
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[0].id,
+        change: 25,
+        newQuantity: 25,
+        reason: 'initial_stock',
+        metadata: { note: 'Initial inventory setup' }
+      }
+    }),
+    // Initial stock for Samsung Galaxy Watch 6
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[1].id,
+        change: 50,
+        newQuantity: 50,
+        reason: 'initial_stock',
+        metadata: { note: 'Initial inventory setup' }
+      }
+    }),
+    // Restock for Classic Denim Jacket
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[2].id,
+        change: 75,
+        newQuantity: 75,
+        reason: 'restock',
+        metadata: { supplier: 'Fashion Wholesale Co', batch: 'FW-2024-001' }
+      }
+    }),
+    // Initial stock for other products
+    ...inventoryData.slice(3).map((data, index) => 
+      prisma.inventoryLog.create({
+        data: {
+          inventoryId: inventories[index + 3].id,
+          change: data.quantity,
+          newQuantity: data.quantity,
+          reason: 'initial_stock',
+          metadata: { note: 'Initial inventory setup' }
+        }
+      })
+    )
+  ]);
+
+  console.log('✅ Created inventory logs');
+
   // Create Reviews
   const reviews = await Promise.all([
     prisma.review.create({
@@ -424,7 +501,7 @@ async function main() {
         userId: users[2].id,
         status: 'SHIPPED',
         subtotal: new Decimal('459.98'),
-        tax: 10,
+        tax: new Decimal('46.00'),
         discount: new Decimal('0.00'),
         total: new Decimal('505.98'),
         email: 'jane@example.com',
@@ -458,7 +535,7 @@ async function main() {
         userId: users[3].id,
         status: 'PROCESSING',
         subtotal: new Decimal('74.98'),
-        tax: 7,
+        tax: new Decimal('5.25'),
         discount: new Decimal('5.00'),
         total: new Decimal('75.23'),
         email: 'mike@example.com',
@@ -490,6 +567,73 @@ async function main() {
 
   console.log('✅ Created orders');
 
+  // Update inventory quantities after orders (simulate sales)
+  // For delivered and shipped orders, reduce inventory
+  await Promise.all([
+    // Reduce iPhone 15 Pro inventory (1 sold)
+    prisma.inventory.update({
+      where: { productId: products[0].id },
+      data: { quantity: { decrement: 1 } }
+    }),
+    // Reduce Denim Jacket inventory (1 sold)
+    prisma.inventory.update({
+      where: { productId: products[2].id },
+      data: { quantity: { decrement: 1 } }
+    }),
+    // Reduce Galaxy Watch inventory (1 sold)
+    prisma.inventory.update({
+      where: { productId: products[1].id },
+      data: { quantity: { decrement: 1 } }
+    }),
+    // Reduce Running Sneakers inventory (1 sold)
+    prisma.inventory.update({
+      where: { productId: products[3].id },
+      data: { quantity: { decrement: 1 } }
+    })
+  ]);
+
+  // Create inventory logs for sales
+  await Promise.all([
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[0].id,
+        change: -1,
+        newQuantity: 24,
+        reason: 'sale',
+        metadata: { orderId: orders[0].id, orderNumber: 'ORD-2024-001' }
+      }
+    }),
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[2].id,
+        change: -1,
+        newQuantity: 74,
+        reason: 'sale',
+        metadata: { orderId: orders[0].id, orderNumber: 'ORD-2024-001' }
+      }
+    }),
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[1].id,
+        change: -1,
+        newQuantity: 49,
+        reason: 'sale',
+        metadata: { orderId: orders[1].id, orderNumber: 'ORD-2024-002' }
+      }
+    }),
+    prisma.inventoryLog.create({
+      data: {
+        inventoryId: inventories[3].id,
+        change: -1,
+        newQuantity: 39,
+        reason: 'sale',
+        metadata: { orderId: orders[1].id, orderNumber: 'ORD-2024-002' }
+      }
+    })
+  ]);
+
+  console.log('✅ Updated inventory for sales');
+
   console.log('🎉 Seed completed successfully!');
   console.log(`
   📊 Summary:
@@ -499,6 +643,8 @@ async function main() {
   - Reviews: ${reviews.length}
   - Carts: ${carts.length}
   - Orders: ${orders.length}
+  - Inventory Records: ${inventories.length}
+  - Inventory Logs: ${inventoryLogs.length + 4} (including sales logs)
   `);
 }
 

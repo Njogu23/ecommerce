@@ -1,5 +1,5 @@
 import { hashPassword } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import prisma from '@/lib/prisma';
 
 export async function GET(_request, {params}) {
     try {
@@ -23,7 +23,7 @@ export async function GET(_request, {params}) {
 export async function PUT(request, props) {
     const params = await props.params
     try {
-        const { id } = params
+        const { id } = await params;
         const body = await request.json()
         const existingUser = await prisma.user.findUnique({
             where: {id:id},

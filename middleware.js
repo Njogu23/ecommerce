@@ -1,25 +1,55 @@
-import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { withAuth } from "next-auth/middleware"
 
-export async function middleware(request) {
-  const token = await getToken({ req: request });
-  const { pathname } = request.nextUrl;
-
-  // Protected routes
-  const protectedRoutes = ["/",'/profile', '/checkout', '/dashboard'];
-  const isProtected = protectedRoutes.icludes(pathname);
-
-  if (isProtected && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
+export default withAuth(
+  function middleware(req) {
+    // Additional middleware logic can go here
+    console.log("Middleware running for:", req.nextUrl.pathname)
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const { pathname } = req.nextUrl
+        
+        // Always allow access to auth pages
+        if (pathname.startsWith('/login') || pathname.startsWith('/register')) {
+          return true
+        }
+        
+        // Require authentication for all other pages
+        if (!token) {
+          return false
+        }
+        
+        // Role-based access control
+        const userRole = token.role
+        
+        // Admin routes - only admin users
+        if (pathname.startsWith('/admin')) {
+          return userRole === 'admin'
+        }
+        
+        // Manager routes - admin and manager users
+        if (pathname.startsWith('/manager')) {
+          return userRole === 'admin' || userRole === 'manager'
+        }
+        
+        // Default: allow access for authenticated users
+        return true
+      },
+    },
   }
+)
 
-  // Admin routes
-  const adminRoutes = ['/admin'];
-  const isAdminRoute = adminRoutes.some((route) => pathname.startsWith(route));
-
-  if (isAdminRoute && token?.role !== 'ADMIN') {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
-  return NextResponse.next();
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api/auth (NextAuth API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public (public files)
+     */
+    '/((?!api/auth|_next/static|_next/image|favicon.ico|public).*)',
+  ]
 }
