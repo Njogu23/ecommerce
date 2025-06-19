@@ -8,13 +8,7 @@ const ProductDetailPage = ({ productId }) => {
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  useEffect(() => {
-    if (productId) {
-      fetchProduct();
-    }
-  }, [productId])
-
-  const fetchProduct = async () => {
+  const fetchProduct = React.useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`/api/admin/products/${productId}`);
@@ -28,7 +22,13 @@ const ProductDetailPage = ({ productId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [productId]);
+
+  useEffect(() => {
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId, fetchProduct])
 
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this product? This action cannot be undone.')) return;
