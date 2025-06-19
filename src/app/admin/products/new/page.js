@@ -7,7 +7,7 @@ export default async function NewProductPage() {
   const categories = await getCategories();
   
   return (
-    <AuthGuard requiredRole="Admin">
+    <AuthGuard requiredRole="ADMIN">
     <div className="container mx-auto px-4 py-8">
       <ProductForm categories={categories} />
     </div>

@@ -21,6 +21,7 @@
     "bcryptjs": "^3.0.2",
     "chart.js": "^4.4.9",
     "date-fns": "^4.1.0",
+    "lucide-react": "^0.517.0",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "prisma": "^6.8.2",

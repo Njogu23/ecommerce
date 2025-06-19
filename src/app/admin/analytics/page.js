@@ -4,7 +4,7 @@ import AuthGuard from "@/app/components/AuthGuard";
 
 export default function AnalyticsPage() {
   return (
-    <AuthGuard requiredRole="admin">
+    <AuthGuard requiredRole="ADMIN">
     <div className="bg-gray-50 min-h-screen">
       <AnalyticsDashboard />
     </div>

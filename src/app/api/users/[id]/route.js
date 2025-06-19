@@ -4,11 +4,25 @@ import prisma from '@/lib/prisma';
 export async function GET(_request, {params}) {
     try {
     const { id } = await params
-    const user = await prisma.user.findUnique({
-        where : {
-            id: id
+    // Update your GET endpoint to include orders with items and products
+const user = await prisma.user.findUnique({
+    where: { id: id },
+    include: {
+        orders: {
+            include: {
+                items: {
+                    include: {
+                        product: true
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
         },
-    })
+        reviews: true
+    }
+});
     if (!user) {
         return Response.json({ error: "User not found!" }, { status: 404})
     }
@@ -49,6 +63,8 @@ export async function PUT(request, props) {
         return Response.json({error: "insternal server error!"}, {status: 500})
     }
 }
+
+
 
 export async function DELETE(_request, {params}) {
     try {

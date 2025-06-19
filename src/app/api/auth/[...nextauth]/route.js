@@ -1,10 +1,11 @@
+// app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { compare } from "bcryptjs";
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt", // For scalability & stateless sessions
@@ -66,6 +67,8 @@ const handler = NextAuth({
     // You can also define: error, signOut, etc.
   },
   secret: process.env.NEXTAUTH_SECRET, // Secure your JWTs
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

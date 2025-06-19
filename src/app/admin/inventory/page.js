@@ -3,7 +3,7 @@ import AuthGuard from '@/app/components/AuthGuard';
 
 const Page = () => {
   return (
-    <AuthGuard requiredRole="Admin">
+    <AuthGuard requiredRole="ADMIN">
     <div>
         <InventoryDashboard />
     </div>
