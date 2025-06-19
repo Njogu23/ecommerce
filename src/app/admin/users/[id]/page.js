@@ -249,7 +249,7 @@ export default function UserDetailPage() {
                                 <p className="text-2xl font-bold text-green-600">{formatCurrency(getTotalSpent(user.orders))}</p>
                             </div>
                             <div className="p-2 bg-green-100 rounded-lg">
-                                <span className="text-green-600 text-lg font-semibold">KES</span>
+                                <span className="text-green-600 text-lg font-semibold">{`KES `}</span>
                             </div>
                         </div>
                     </div>

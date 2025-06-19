@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PrismaClient } from '@prisma/client';
 import { redirect } from 'next/navigation';
+import { serializePrismaData } from '@/utils/prisma';
 
 const prisma = new PrismaClient();
 
@@ -74,18 +75,18 @@ async function getActivitiesData(type, time, page, limit) {
       take: type === 'order_created' ? limit : Math.ceil(limit / 4)
     });
 
-    const orderActivities = orders.map(order => ({
-      id: order.id,
-      type: 'order_created',
-      description: `New order #${order.id} created - $${order.total?.toFixed(2) || '0.00'}`,
-      createdAt: order.createdAt,
-      user: order.user,
-      metadata: {
-        orderId: order.id,
-        total: order.total,
-        status: order.status
-      }
-    }));
+     const orderActivities = orders.map(order => ({
+    id: order.id,
+    type: 'order_created',
+    description: `New order #${order.id} created - $${order.total ? Number(order.total).toFixed(2) : '0.00'}`,
+    createdAt: order.createdAt,
+    user: order.user,
+    metadata: {
+      orderId: order.id,
+      total: order.total ? Number(order.total) : 0, // Convert Decimal to number
+      status: order.status
+    }
+  }));
 
     activities.push(...orderActivities);
   }
@@ -301,7 +302,7 @@ async function getStatsData() {
   return {
     totalActivities: totalActivitiesCount,
     revenue: {
-      today: todayRevenue._sum.total || 0
+      today: todayRevenue._sum.total ? Number(todayRevenue._sum.total) : 0 // Convert Decimal to number
     },
     newUsersToday,
     ordersToday,
@@ -332,19 +333,19 @@ export default async function Page({ searchParams }) {
 
   try {
     const [activitiesData, stats] = await Promise.all([
-      getActivitiesData(type, time, page, limit),
-      getStatsData()
-    ]);
+  getActivitiesData(type, time, page, limit),
+  getStatsData()
+]);
 
-    return (
-      <ActivityMonitoringClient
-        activities={activitiesData.data || []}
-        stats={stats || {}}
-        page={page}
-        limit={limit}
-        total={activitiesData.total || 0}
-      />
-    );
+return (
+  <ActivityMonitoringClient
+    activities={serializePrismaData(activitiesData.data) || []}
+    stats={serializePrismaData(stats) || {}}
+    page={page}
+    limit={limit}
+    total={activitiesData.total || 0}
+  />
+);
   } catch (error) {
     console.error('Error fetching activity data:', error);
     

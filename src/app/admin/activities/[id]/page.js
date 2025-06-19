@@ -209,7 +209,7 @@ function ActivityContent({ type, activity }) {
                     {activity.status}
                   </span>
                 </div>
-                <div><span className="font-medium">Total:</span> KES{formatCurrency(activity.total)}</div>
+                <div><span className="font-medium">Total:</span> KES {formatCurrency(activity.total)}</div>
                 <div><span className="font-medium">Created:</span> {formatDate(activity.createdAt)}</div>
                 {activity.updatedAt && (
                   <div><span className="font-medium">Updated:</span> {formatDate(activity.updatedAt)}</div>
@@ -242,7 +242,7 @@ function ActivityContent({ type, activity }) {
                       <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
                       <div className="text-sm text-gray-600">Unit Price: ${formatCurrency(item.price)}</div>
                     </div>
-                    <div className="font-medium">KES{formatCurrency(Number(item.price) * item.quantity)}</div>
+                    <div className="font-medium">KES {formatCurrency(Number(item.price) * item.quantity)}</div>
                   </div>
                 ))}
               </div>
@@ -328,7 +328,7 @@ function ActivityContent({ type, activity }) {
               <h3 className="font-semibold text-gray-900 mb-3">Product Information</h3>
               <div className="space-y-2 text-sm">
                 <div><span className="font-medium">Product:</span> {activity.product.name}</div>
-                <div><span className="font-medium">Price:</span> KES{formatCurrency(activity.product.price)}</div>
+                <div><span className="font-medium">Price:</span> KES {formatCurrency(activity.product.price)}</div>
               </div>
             </div>
           )}
@@ -369,7 +369,7 @@ function ActivityContent({ type, activity }) {
                 <div className="space-y-2 text-sm">
                   <div><span className="font-medium">Product:</span> {activity.product.name}</div>
                   <div><span className="font-medium">Slug:</span> {activity.product.slug || 'N/A'}</div>
-                  <div><span className="font-medium">Price:</span> KES{formatCurrency(activity.product.price)}</div>
+                  <div><span className="font-medium">Price:</span> KES {formatCurrency(activity.product.price)}</div>
                 </div>
               </div>
             )}

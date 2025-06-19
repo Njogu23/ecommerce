@@ -309,7 +309,7 @@ export default function UsersPage() {
                             </p>
                         </div>
                         <div className="p-2 bg-orange-100 rounded-lg">
-                            <span className="text-green-600 text-lg font-semibold">KES</span>
+                            <span className="text-green-600 text-lg font-semibold">{`KES `}</span>
                         </div>
                     </div>
                 </div>

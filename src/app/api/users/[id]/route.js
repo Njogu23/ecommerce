@@ -64,8 +64,6 @@ export async function PUT(request, props) {
     }
 }
 
-
-
 export async function DELETE(_request, {params}) {
     try {
         const { id } = await params
@@ -77,7 +75,7 @@ export async function DELETE(_request, {params}) {
         if (!existingUser) {
             return Response.json({error: "user not found!"}, {status: 404})
         }
-        
+
         // soft delete by setting isActive to false
         const deletedUser = await prisma.user.update({
             where: {id:id},

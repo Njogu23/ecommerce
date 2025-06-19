@@ -85,6 +85,20 @@ export default function AnalyticsDashboard() {
   const [analyticsData, setAnalyticsData] = useState(null);
   const [error, setError] = useState(null);
 
+  function formatAmount(amount) {
+  // Convert to number if it's a string
+  const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+  
+  // Handle invalid numbers
+  if (isNaN(num)) return 'Invalid amount';
+  
+  // Format with commas and 2 decimal places
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
   useEffect(() => {
     const fetchAnalyticsData = async () => {
       try {
@@ -278,7 +292,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-              <p className="text-2xl font-bold mt-1">KES{analyticsData.summary?.totalRevenue?.toFixed(2) || '0.00'}</p>
+              <p className="text-xl font-bold mt-1">KES{formatAmount(analyticsData.summary?.totalRevenue?.toFixed(2) || '0.00')}</p>
               <p className={`text-sm mt-1 flex items-center ${
                 (analyticsData.summary?.revenueChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -291,7 +305,7 @@ export default function AnalyticsDashboard() {
               </p>
             </div>
             <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-              <h2 className="w-6 h-6">KES</h2>
+              <h2 className="w-6 h-6">{`KES `}</h2>
             </div>
           </div>
         </div>
@@ -300,7 +314,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Orders</p>
-              <p className="text-2xl font-bold mt-1">{analyticsData.summary?.totalOrders || 0}</p>
+              <p className="text-xl font-bold mt-1">{analyticsData.summary?.totalOrders || 0}</p>
               <p className={`text-sm mt-1 flex items-center ${
                 (analyticsData.summary?.ordersChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -322,7 +336,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Avg. Order Value</p>
-              <p className="text-2xl font-bold mt-1">KES{analyticsData.summary?.avgOrderValue?.toFixed(2) || '0.00'}</p>
+              <p className="text-xl font-bold mt-1">KES{formatAmount(analyticsData.summary?.avgOrderValue?.toFixed(2) || '0.00')}</p>
               <p className={`text-sm mt-1 flex items-center ${
                 (analyticsData.summary?.avgOrderValueChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -335,7 +349,7 @@ export default function AnalyticsDashboard() {
               </p>
             </div>
             <div className="p-3 rounded-full bg-green-100 text-green-600">
-              <h2 className="w-6 h-6" >KES</h2>
+              <h2 className="w-6 h-6" >{`KES `}</h2>
             </div>
           </div>
         </div>
@@ -344,7 +358,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Products</p>
-              <p className="text-2xl font-bold mt-1">{analyticsData.inventorySummary?.totalProducts || 0}</p>
+              <p className="text-xl font-bold mt-1">{analyticsData.inventorySummary?.totalProducts || 0}</p>
               <p className="text-sm mt-1 text-gray-500">
                 {analyticsData.inventorySummary?.inStock || 0} in stock
               </p>
@@ -523,7 +537,7 @@ export default function AnalyticsDashboard() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    ${order.total.toFixed(2)}
+                    KES{formatAmount(order.total.toFixed(2))}
                   </td>
                 </tr>
               )) || (

@@ -43,7 +43,7 @@ export async function POST(request) {
 
         const { password: _, ...userWithoutPassword } = user;
         return Response.json(userWithoutPassword, {status: 200});
-   
+
 } catch (error){
     console.error("signup error:", error)
     return Response.json({error: "internal server error!"}, {status: 500})
