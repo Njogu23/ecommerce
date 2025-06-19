@@ -278,7 +278,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-              <p className="text-2xl font-bold mt-1">${analyticsData.summary?.totalRevenue?.toFixed(2) || '0.00'}</p>
+              <p className="text-2xl font-bold mt-1">KES{analyticsData.summary?.totalRevenue?.toFixed(2) || '0.00'}</p>
               <p className={`text-sm mt-1 flex items-center ${
                 (analyticsData.summary?.revenueChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -322,7 +322,7 @@ export default function AnalyticsDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Avg. Order Value</p>
-              <p className="text-2xl font-bold mt-1">${analyticsData.summary?.avgOrderValue?.toFixed(2) || '0.00'}</p>
+              <p className="text-2xl font-bold mt-1">KES{analyticsData.summary?.avgOrderValue?.toFixed(2) || '0.00'}</p>
               <p className={`text-sm mt-1 flex items-center ${
                 (analyticsData.summary?.avgOrderValueChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>

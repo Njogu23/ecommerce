@@ -739,7 +739,7 @@ async function main() {
   const originalOrders = await Promise.all([
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2024-001',
+        orderNumber: 'ORD-2025-001',
         userId: users[1].id,
         status: 'DELIVERED',
         subtotal: new Decimal('1079.98'),
@@ -765,7 +765,7 @@ async function main() {
     }),
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2024-002',
+        orderNumber: 'ORD-2025-002',
         userId: users[2].id,
         status: 'SHIPPED',
         subtotal: new Decimal('459.98'),
@@ -791,7 +791,7 @@ async function main() {
     }),
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2024-003',
+        orderNumber: 'ORD-2025-003',
         userId: users[3].id,
         status: 'PROCESSING',
         subtotal: new Decimal('74.98'),
@@ -851,7 +851,7 @@ async function main() {
     
     const newOrder = await prisma.order.create({
       data: {
-        orderNumber: `ORD-2024-${String(i).padStart(3, '0')}`,
+        orderNumber: `ORD-2025-${String(i).padStart(3, '0')}`,
         userId: users[userIndex].id,
         status: status,
         subtotal: subtotal,
