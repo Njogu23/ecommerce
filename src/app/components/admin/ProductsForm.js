@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowLeft, Upload, X, Save, Eye, Package, DollarSign, Tag, FileText, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
+import AuthGuard from '../AuthGuard';
 
 
 const ProductForm = ({ productId, isEdit = false }) => {
