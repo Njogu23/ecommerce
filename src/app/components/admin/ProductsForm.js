@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowLeft, Upload, X, Save, Eye, Package, DollarSign, Tag, FileText, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
@@ -251,6 +252,7 @@ const ProductForm = ({ productId, isEdit = false }) => {
   };
 
   return (
+    <AuthGuard requiredRole="ADMIN">
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -644,6 +646,7 @@ const ProductForm = ({ productId, isEdit = false }) => {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 };
 
