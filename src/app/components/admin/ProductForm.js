@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import AuthGuard from '../AuthGuard';
+import Image from "next/image"
 
 // Validation schema
 const productSchema = z.object({
@@ -109,6 +111,7 @@ export default function ProductForm({ categories = [] }) {
   };
 
   return (
+    <AuthGuard requiredRole="ADMIN">
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Create New Product</h1>
       
@@ -268,7 +271,9 @@ export default function ProductForm({ categories = [] }) {
             {images.map((image, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                 <div className="flex items-center space-x-3">
-                  <img 
+                  <Image
+                    height={100}
+                    width={100}
                     src={image.url} 
                     alt={image.altText || 'Product image'} 
                     className="h-12 w-12 object-cover rounded"
@@ -348,5 +353,6 @@ export default function ProductForm({ categories = [] }) {
         </div>
       </form>
     </div>
+    </AuthGuard>
   );
 }

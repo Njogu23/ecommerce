@@ -1,4 +1,4 @@
-import ProductForm from '@/components/admin/ProductForm';
+import ProductForm from "@/app/components/admin/ProductForm";
 
 export default function EditProductPage({ params }) {
   return <ProductForm productId={params.id} isEdit={true} />;
