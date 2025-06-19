@@ -67,7 +67,7 @@ const ProductDetailPage = ({ productId }) => {
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'KES'
     }).format(price);
   };
 

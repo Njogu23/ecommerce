@@ -133,7 +133,7 @@ export default function ActivityMonitoringClient({ activities = [], stats = {}, 
                 <div>
                   <p className="text-sm font-medium text-gray-600">Revenue Today</p>
                   <p className="text-2xl font-bold text-green-600 mt-1">
-                    ${stats.revenue?.today?.toFixed(2) || '0.00'}
+                    KES{stats.revenue?.today?.toFixed(2) || '0.00'}
                   </p>
                 </div>
                 <div className="text-2xl">💰</div>

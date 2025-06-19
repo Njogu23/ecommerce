@@ -221,7 +221,7 @@ const ProductsPage = () => {
                       
                       <div className="flex justify-between items-center mb-4">
                         <div>
-                          <p className="text-lg font-bold text-gray-900">${product.price}</p>
+                          <p className="text-lg font-bold text-gray-900">KES{product.price}</p>
                           <p className="text-sm text-gray-500">
                             Stock: {product.inventory?.quantity || 0}
                           </p>

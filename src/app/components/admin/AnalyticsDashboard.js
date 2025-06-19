@@ -291,7 +291,7 @@ export default function AnalyticsDashboard() {
               </p>
             </div>
             <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-              <CurrencyDollarIcon className="w-6 h-6" />
+              <h2 className="w-6 h-6">KES</h2>
             </div>
           </div>
         </div>
@@ -335,7 +335,7 @@ export default function AnalyticsDashboard() {
               </p>
             </div>
             <div className="p-3 rounded-full bg-green-100 text-green-600">
-              <CurrencyDollarIcon className="w-6 h-6" />
+              <h2 className="w-6 h-6" >KES</h2>
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@ export default function AnalyticsDashboard() {
                   },
                   tooltip: {
                     callbacks: {
-                      label: (context) => `$${context.raw.toFixed(2)}`
+                      label: (context) => `KES${context.raw.toFixed(2)}`
                     }
                   }
                 },
@@ -380,7 +380,7 @@ export default function AnalyticsDashboard() {
                   y: {
                     beginAtZero: true,
                     ticks: {
-                      callback: (value) => `$${value}`
+                      callback: (value) => `KES${value}`
                     }
                   }
                 }
@@ -437,7 +437,7 @@ export default function AnalyticsDashboard() {
                   },
                   tooltip: {
                     callbacks: {
-                      label: (context) => `$${context.raw.toFixed(2)}`
+                      label: (context) => `KES${context.raw.toFixed(2)}`
                     }
                   }
                 },
@@ -445,7 +445,7 @@ export default function AnalyticsDashboard() {
                   y: {
                     beginAtZero: true,
                     ticks: {
-                      callback: (value) => `$${value}`
+                      callback: (value) => `KES${value}`
                     }
                   }
                 }
