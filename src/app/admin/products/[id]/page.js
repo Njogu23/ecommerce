@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Edit, Trash2, Package, Star, User, Calendar, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
