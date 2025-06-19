@@ -220,7 +220,7 @@ async function main() {
 
   console.log('✅ Created categories');
 
-  // Create Products (Expanded with more products)
+  // Create Products (Expanded with more products) - ALL PRICES CONVERTED TO KES
   const products = await Promise.all([
     // Electronics
     prisma.product.create({
@@ -228,10 +228,10 @@ async function main() {
         name: 'iPhone 15 Pro',
         slug: 'iphone-15-pro',
         description: 'The latest iPhone with advanced camera system and A17 Pro chip',
-        price: new Decimal('999.99'),
+        price: new Decimal('129998.70'), // 999.99 * 130
         tax: 8,
         discount: 5,
-        costPrice: new Decimal('750.00'),
+        costPrice: new Decimal('97500.00'), // 750.00 * 130
         categoryId: categories[0].id,
         avgRating: new Decimal('4.8'),
         images: {
@@ -253,10 +253,10 @@ async function main() {
         name: 'Samsung Galaxy Watch 6',
         slug: 'samsung-galaxy-watch-6',
         description: 'Advanced smartwatch with health monitoring and fitness tracking',
-        price: new Decimal('329.99'),
+        price: new Decimal('42898.70'), // 329.99 * 130
         tax: 8,
         discount: 10,
-        costPrice: new Decimal('250.00'),
+        costPrice: new Decimal('32500.00'), // 250.00 * 130
         categoryId: categories[0].id,
         avgRating: new Decimal('4.5'),
         images: {
@@ -274,10 +274,10 @@ async function main() {
         name: 'MacBook Pro 14"',
         slug: 'macbook-pro-14',
         description: 'Powerful laptop with M3 Pro chip for professional work',
-        price: new Decimal('1999.99'),
+        price: new Decimal('259998.70'), // 1999.99 * 130
         tax: 8,
         discount: 3,
-        costPrice: new Decimal('1500.00'),
+        costPrice: new Decimal('195000.00'), // 1500.00 * 130
         categoryId: categories[0].id,
         avgRating: new Decimal('4.9'),
         images: {
@@ -295,10 +295,10 @@ async function main() {
         name: 'Sony WH-1000XM5 Headphones',
         slug: 'sony-wh-1000xm5',
         description: 'Premium noise-canceling wireless headphones',
-        price: new Decimal('399.99'),
+        price: new Decimal('51998.70'), // 399.99 * 130
         tax: 8,
         discount: 12,
-        costPrice: new Decimal('280.00'),
+        costPrice: new Decimal('36400.00'), // 280.00 * 130
         categoryId: categories[0].id,
         avgRating: new Decimal('4.7'),
         images: {
@@ -317,9 +317,9 @@ async function main() {
         name: 'Classic Denim Jacket',
         slug: 'classic-denim-jacket',
         description: 'Timeless denim jacket perfect for casual wear',
-        price: new Decimal('79.99'),
+        price: new Decimal('10398.70'), // 79.99 * 130
         tax: 5,
-        costPrice: new Decimal('45.00'),
+        costPrice: new Decimal('5850.00'), // 45.00 * 130
         categoryId: categories[1].id,
         avgRating: new Decimal('4.3'),
         images: {
@@ -337,9 +337,9 @@ async function main() {
         name: 'Running Sneakers',
         slug: 'running-sneakers',
         description: 'Comfortable running shoes with excellent cushioning',
-        price: new Decimal('129.99'),
+        price: new Decimal('16898.70'), // 129.99 * 130
         discount: 15,
-        costPrice: new Decimal('80.00'),
+        costPrice: new Decimal('10400.00'), // 80.00 * 130
         categoryId: categories[1].id,
         avgRating: new Decimal('4.6'),
         images: {
@@ -357,10 +357,10 @@ async function main() {
         name: 'Wool Winter Coat',
         slug: 'wool-winter-coat',
         description: 'Warm and stylish wool coat for winter season',
-        price: new Decimal('189.99'),
+        price: new Decimal('24698.70'), // 189.99 * 130
         tax: 5,
         discount: 8,
-        costPrice: new Decimal('120.00'),
+        costPrice: new Decimal('15600.00'), // 120.00 * 130
         categoryId: categories[1].id,
         avgRating: new Decimal('4.4'),
         images: {
@@ -378,9 +378,9 @@ async function main() {
         name: 'Cotton T-Shirt Pack',
         slug: 'cotton-tshirt-pack',
         description: 'Pack of 3 premium cotton t-shirts in various colors',
-        price: new Decimal('39.99'),
+        price: new Decimal('5198.70'), // 39.99 * 130
         tax: 5,
-        costPrice: new Decimal('20.00'),
+        costPrice: new Decimal('2600.00'), // 20.00 * 130
         categoryId: categories[1].id,
         avgRating: new Decimal('4.2'),
         images: {
@@ -399,8 +399,8 @@ async function main() {
         name: 'Modern Coffee Table',
         slug: 'modern-coffee-table',
         description: 'Sleek and modern coffee table for your living room',
-        price: new Decimal('299.99'),
-        costPrice: new Decimal('180.00'),
+        price: new Decimal('38998.70'), // 299.99 * 130
+        costPrice: new Decimal('23400.00'), // 180.00 * 130
         categoryId: categories[2].id,
         avgRating: new Decimal('4.4'),
         images: {
@@ -418,9 +418,9 @@ async function main() {
         name: 'Garden Tool Set',
         slug: 'garden-tool-set',
         description: 'Complete set of essential gardening tools',
-        price: new Decimal('89.99'),
+        price: new Decimal('11698.70'), // 89.99 * 130
         discount: 20,
-        costPrice: new Decimal('50.00'),
+        costPrice: new Decimal('6500.00'), // 50.00 * 130
         categoryId: categories[2].id,
         avgRating: new Decimal('4.2'),
         images: {
@@ -438,9 +438,9 @@ async function main() {
         name: 'Ceramic Dinnerware Set',
         slug: 'ceramic-dinnerware-set',
         description: 'Elegant 16-piece ceramic dinnerware set',
-        price: new Decimal('149.99'),
+        price: new Decimal('19498.70'), // 149.99 * 130
         tax: 7,
-        costPrice: new Decimal('85.00'),
+        costPrice: new Decimal('11050.00'), // 85.00 * 130
         categoryId: categories[2].id,
         avgRating: new Decimal('4.6'),
         images: {
@@ -459,8 +459,8 @@ async function main() {
         name: 'The Art of Programming',
         slug: 'art-of-programming',
         description: 'Comprehensive guide to software development and programming principles',
-        price: new Decimal('49.99'),
-        costPrice: new Decimal('25.00'),
+        price: new Decimal('6498.70'), // 49.99 * 130
+        costPrice: new Decimal('3250.00'), // 25.00 * 130
         categoryId: categories[3].id,
         avgRating: new Decimal('4.7'),
         images: {
@@ -478,8 +478,8 @@ async function main() {
         name: 'Mindfulness and Meditation',
         slug: 'mindfulness-meditation',
         description: 'A practical guide to mindfulness and meditation techniques',
-        price: new Decimal('24.99'),
-        costPrice: new Decimal('12.00'),
+        price: new Decimal('3248.70'), // 24.99 * 130
+        costPrice: new Decimal('1560.00'), // 12.00 * 130
         categoryId: categories[3].id,
         avgRating: new Decimal('4.5'),
         images: {
@@ -497,8 +497,8 @@ async function main() {
         name: 'Cooking Masterclass',
         slug: 'cooking-masterclass',
         description: 'Professional cooking techniques and recipes',
-        price: new Decimal('34.99'),
-        costPrice: new Decimal('18.00'),
+        price: new Decimal('4548.70'), // 34.99 * 130
+        costPrice: new Decimal('2340.00'), // 18.00 * 130
         categoryId: categories[3].id,
         avgRating: new Decimal('4.8'),
         images: {
@@ -517,9 +517,9 @@ async function main() {
         name: 'Yoga Mat Premium',
         slug: 'yoga-mat-premium',
         description: 'High-quality non-slip yoga mat for all skill levels',
-        price: new Decimal('59.99'),
+        price: new Decimal('7798.70'), // 59.99 * 130
         discount: 10,
-        costPrice: new Decimal('30.00'),
+        costPrice: new Decimal('3900.00'), // 30.00 * 130
         categoryId: categories[4].id,
         avgRating: new Decimal('4.5'),
         images: {
@@ -537,10 +537,10 @@ async function main() {
         name: 'Camping Tent 4-Person',
         slug: 'camping-tent-4person',
         description: 'Waterproof 4-person camping tent with easy setup',
-        price: new Decimal('199.99'),
+        price: new Decimal('25998.70'), // 199.99 * 130
         tax: 6,
         discount: 15,
-        costPrice: new Decimal('120.00'),
+        costPrice: new Decimal('15600.00'), // 120.00 * 130
         categoryId: categories[4].id,
         avgRating: new Decimal('4.3'),
         images: {
@@ -559,10 +559,10 @@ async function main() {
         name: 'Skincare Essential Kit',
         slug: 'skincare-essential-kit',
         description: 'Complete skincare routine with cleanser, toner, and moisturizer',
-        price: new Decimal('79.99'),
+        price: new Decimal('10398.70'), // 79.99 * 130
         tax: 5,
         discount: 5,
-        costPrice: new Decimal('40.00'),
+        costPrice: new Decimal('5200.00'), // 40.00 * 130
         categoryId: categories[5].id,
         avgRating: new Decimal('4.4'),
         images: {
@@ -580,8 +580,8 @@ async function main() {
         name: 'Vitamin C Serum',
         slug: 'vitamin-c-serum',
         description: 'Brightening vitamin C serum for radiant skin',
-        price: new Decimal('29.99'),
-        costPrice: new Decimal('15.00'),
+        price: new Decimal('3898.70'), // 29.99 * 130
+        costPrice: new Decimal('1950.00'), // 15.00 * 130
         categoryId: categories[5].id,
         avgRating: new Decimal('4.6'),
         images: {
@@ -669,7 +669,7 @@ async function main() {
 
   console.log('✅ Created reviews');
 
-  // Create expanded carts
+  // Create expanded carts - PRICES CONVERTED TO KES
   const carts = await Promise.all([
     prisma.cart.create({
       data: {
@@ -739,7 +739,7 @@ async function main() {
   const originalOrders = await Promise.all([
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2025-001',
+        orderNumber: 'ORD-2024-001',
         userId: users[1].id,
         status: 'DELIVERED',
         subtotal: new Decimal('1079.98'),
@@ -765,7 +765,7 @@ async function main() {
     }),
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2025-002',
+        orderNumber: 'ORD-2024-002',
         userId: users[2].id,
         status: 'SHIPPED',
         subtotal: new Decimal('459.98'),
@@ -791,7 +791,7 @@ async function main() {
     }),
     prisma.order.create({
       data: {
-        orderNumber: 'ORD-2025-003',
+        orderNumber: 'ORD-2024-003',
         userId: users[3].id,
         status: 'PROCESSING',
         subtotal: new Decimal('74.98'),
@@ -851,7 +851,7 @@ async function main() {
     
     const newOrder = await prisma.order.create({
       data: {
-        orderNumber: `ORD-2025-${String(i).padStart(3, '0')}`,
+        orderNumber: `ORD-2024-${String(i).padStart(3, '0')}`,
         userId: users[userIndex].id,
         status: status,
         subtotal: subtotal,
