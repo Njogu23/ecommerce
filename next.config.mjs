@@ -22,6 +22,7 @@ const nextConfig = {
     turbo: {
       // Add any turbo-specific config if needed
     },
+    serverComponentsExternalPackages: ['@prisma/client', 'prisma']
   },
 };
 
